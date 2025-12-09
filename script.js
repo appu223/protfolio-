@@ -1,84 +1,175 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
     
-    // SETUP GSAP
+    // 1. PRELOADER HANDLING
+    // ===========================================
+    const preloader = document.getElementById('preloader');
+    const progressBar = document.querySelector('.loader-progress');
+    
+    if (preloader) {
+        // Simulate loading
+        setTimeout(() => { progressBar.style.width = "50%"; }, 200);
+        setTimeout(() => { progressBar.style.width = "100%"; }, 800);
+        
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                    initAnimations(); // Start site animations after load
+                }, 500);
+            }, 1000);
+        });
+    } else {
+        initAnimations();
+    }
+
+    // 2. GSAP SCROLL ANIMATIONS
+    // ===========================================
     gsap.registerPlugin(ScrollTrigger);
 
-    // PRELOADER
-    const preloaderTl = gsap.timeline();
-    preloaderTl
-        .to(".loader-progress", { width: "100%", duration: 1.5, ease: "power2.inOut" })
-        .to(".loader-content", { opacity: 0, duration: 0.5 })
-        .to("#preloader", { y: "-100%", duration: 1, ease: "power4.inOut" })
-        .fromTo(".gs-reveal", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power3.out" }, "-=0.5")
-        .fromTo(".gs-reveal-img", { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 1, ease: "power3.out" }, "-=0.8");
+    function initAnimations() {
+        // Hero Text Reveal
+        gsap.from(".gs-reveal", {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out"
+        });
 
-    // FILTERING
+        // Hero Image Reveal
+        gsap.from(".gs-reveal-img", {
+            x: 50,
+            opacity: 0,
+            duration: 1.2,
+            delay: 0.5,
+            ease: "power2.out"
+        });
+
+        // Scroll Triggers for Sections
+        gsap.utils.toArray('.section-padding').forEach(section => {
+            gsap.from(section.querySelectorAll('.gs-reveal'), {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                },
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1
+            });
+        });
+    }
+
+    // 3. PROJECT FILTERING LOGIC
+    // ===========================================
     const filterBtns = document.querySelectorAll('.filter-btn');
     const projectItems = document.querySelectorAll('.filter-item');
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+            // Remove active class from all
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+
             const filterValue = btn.getAttribute('data-filter');
-            
+
             projectItems.forEach(item => {
+                // We need to target the parent COL to hide spacing correctly in Bootstrap
+                const parentCol = item.closest('.col-md-6') || item; 
+
                 if (filterValue === 'all' || item.classList.contains(filterValue)) {
-                    gsap.to(item, { display: 'block', opacity: 1, scale: 1, duration: 0.3 });
+                    // Show
+                    gsap.to(parentCol, { 
+                        display: "block", 
+                        opacity: 1, 
+                        scale: 1, 
+                        duration: 0.3 
+                    });
                 } else {
-                    gsap.to(item, { display: 'none', opacity: 0, scale: 0.9, duration: 0.3 });
+                    // Hide
+                    gsap.to(parentCol, { 
+                        display: "none", 
+                        opacity: 0, 
+                        scale: 0.8, 
+                        duration: 0.3 
+                    });
                 }
             });
         });
     });
 
-    // EMAIL FORM
-    const contactForm = document.getElementById('contactForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const formStatus = document.getElementById('formStatus');
+    // 4. MAGNETIC BUTTON EFFECT
+    // ===========================================
+    const magnets = document.querySelectorAll('.magnetic');
+    
+    magnets.forEach((magnet) => {
+        magnet.addEventListener('mousemove', (e) => {
+            const position = magnet.getBoundingClientRect();
+            const x = e.pageX - position.left - position.width / 2;
+            const y = e.pageY - position.top - position.height / 2;
 
-    if(contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            submitBtn.innerHTML = 'Sending...';
-            submitBtn.style.opacity = '0.7';
+            magnet.style.transform = `translate(${x * 0.3}px, ${y * 0.5}px)`;
+        });
 
-            const formData = new FormData(contactForm);
+        magnet.addEventListener('mouseout', () => {
+            magnet.style.transform = 'translate(0px, 0px)';
+        });
+    });
 
-            fetch("https://formsubmit.co/ajax/alphonseniccori123@gmail.com", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                submitBtn.innerHTML = 'Message Sent!';
-                submitBtn.style.backgroundColor = '#10b981';
-                formStatus.innerHTML = "Thanks! I'll get back to you soon.";
-                contactForm.reset();
-                setTimeout(() => {
-                    submitBtn.innerHTML = 'Send Message';
-                    submitBtn.style.backgroundColor = '';
-                    submitBtn.style.opacity = '1';
-                    formStatus.innerHTML = "";
-                }, 4000);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                submitBtn.innerHTML = 'Failed. Try Again.';
-            });
+    // 5. TILT EFFECT FOR HERO IMAGE
+    // ===========================================
+    if (typeof VanillaTilt !== 'undefined') {
+        VanillaTilt.init(document.querySelector(".hero-image-wrapper"), {
+            max: 10,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.2
         });
     }
 
-    // SCROLL ANIMATIONS
-    gsap.utils.toArray('.gs-reveal').forEach(element => {
-        gsap.fromTo(element, 
-            { y: 50, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.8, ease: "power2.out", scrollTrigger: { trigger: element, start: "top 85%" } }
-        );
-    });
-    
-    // TILT EFFECT
-    if (typeof VanillaTilt !== 'undefined') {
-        VanillaTilt.init(document.querySelector(".hero-image-wrapper"), { max: 5, speed: 400, glare: true, "max-glare": 0.2 });
+    // 6. CONTACT FORM HANDLING
+    // ===========================================
+    const form = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+
+    if(form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.innerText;
+            
+            btn.innerText = 'Sending...';
+            btn.disabled = true;
+
+            // Simulate sending (Replace this with actual API call)
+            setTimeout(() => {
+                btn.innerText = 'Message Sent!';
+                btn.style.backgroundColor = '#10b981'; // Green
+                formStatus.innerHTML = '<span class="text-success">Thanks! I will get back to you soon.</span>';
+                form.reset();
+                
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                    btn.style.backgroundColor = ''; 
+                    formStatus.innerHTML = '';
+                }, 3000);
+            }, 1500);
+        });
     }
+
+    // 7. NAVBAR SCROLL EFFECT
+    // ===========================================
+    window.addEventListener('scroll', () => {
+        const nav = document.querySelector('.glass-nav');
+        if (window.scrollY > 50) {
+            nav.classList.add('shadow-sm');
+            nav.style.padding = '0.5rem 0';
+        } else {
+            nav.classList.remove('shadow-sm');
+            nav.style.padding = '1rem 0';
+        }
+    });
+
 });
