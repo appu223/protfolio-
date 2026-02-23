@@ -1,171 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects | Alphonse Niccori</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    
-    <style>
-        /* Mobile Nav Fix */
-        @media (max-width: 991px) {
-            .navbar-collapse {
-                background: rgba(255, 255, 255, 0.95);
-                backdrop-filter: blur(10px);
-                padding: 1rem;
-                border-radius: 0 0 15px 15px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            }
-        }
-        .project-card {
-            height: 100%;
-            margin-bottom: 20px;
-        }
-        .project-image img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects | Alphonse Niccori</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+body{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    background:#f8f9fb;
+}
+
+.project-card{
+    height:100%;
+    margin-bottom:20px;
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.05);
+    transition:0.4s;
+}
+.project-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 40px rgba(0,0,0,0.1);
+}
+
+.project-image{
+    position:relative;
+    overflow:hidden;
+}
+.project-image img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    transition:0.5s;
+}
+.project-card:hover img{
+    transform:scale(1.08);
+}
+
+.overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    transition:0.4s;
+}
+.project-card:hover .overlay{
+    opacity:1;
+}
+
+.btn-circle{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:white;
+    color:#111;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    transition:0.3s;
+}
+.btn-circle:hover{
+    background:#2563eb;
+    color:white;
+}
+
+.project-info{
+    padding:20px;
+}
+.project-tag{
+    font-size:12px;
+    font-weight:600;
+    color:#2563eb;
+    text-transform:uppercase;
+}
+
+.filter-btn{
+    padding:8px 18px;
+    border-radius:50px;
+    border:1px solid #ddd;
+    background:white;
+    font-weight:500;
+    transition:0.3s;
+}
+.filter-btn.active,
+.filter-btn:hover{
+    background:#111;
+    color:white;
+}
+
+.navbar{
+    background:white;
+    box-shadow:0 4px 20px rgba(0,0,0,0.05);
+}
+</style>
 </head>
+
 <body>
 
-    <nav class="navbar navbar-expand-lg fixed-top glass-nav">
-        <div class="container px-4">
-            <a class="navbar-brand magnetic" href="index.html">AN.</a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="fas fa-bars"></span></button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav align-items-center gap-4">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="about.html">Resume & Bio</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="projects.html">Portfolio</a></li>
-                    <li class="nav-item ms-lg-3"><a href="index.html#contact" class="btn-primary-glow">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<nav class="navbar navbar-expand-lg fixed-top">
+<div class="container px-4">
+<a class="navbar-brand fw-bold" href="index.html">AN.</a>
+<button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+<span class="fas fa-bars"></span>
+</button>
+<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+<ul class="navbar-nav align-items-center gap-4">
+<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="about.html">Resume & Bio</a></li>
+<li class="nav-item"><a class="nav-link active" href="projects.html">Portfolio</a></li>
+<li class="nav-item"><a href="index.html#contact" class="btn btn-dark rounded-pill px-4">Contact</a></li>
+</ul>
+</div>
+</div>
+</nav>
 
-    <section class="section-padding pt-5 mt-5">
-        <div class="container">
-            <div class="text-center mb-5 gs-reveal">
-                <h6 class="section-label">Portfolio</h6>
-                <h1 class="display-3 fw-bold">Selected Works</h1>
-                <div class="filter-controls mt-4 justify-content-center d-flex gap-2 flex-wrap">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="web">Web Systems</button>
-                    <button class="filter-btn" data-filter="ai">AI / Vision</button>
-                </div>
-            </div>
+<section class="pt-5 mt-5 pb-5">
+<div class="container">
 
-            <!-- MODIFIED: Changed from generic .project-grid to Bootstrap Row for better mobile control -->
-            <div class="row g-4 project-grid">
-                
-                <!-- NEW PROJECT: PORTFOLIO/CV -->
-                <div class="col-md-6 col-lg-4 filter-item web gs-reveal">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <!-- Placeholder image for code/portfolio -->
-                            <img src="cv_code.jpg" alt="Portfolio Code" onerror="this.src='https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800'">
-                            <div class="overlay">
-                                <!-- YOUR LINK ADDED HERE -->
-                                <a href="https://github.com/appu223/Open-CV-auto-instagram-reels-scroller-python-.git" target="_blank" class="btn-circle"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <div class="d-flex justify-content-between mb-2"><span class="project-tag">Source Code</span></div>
-                            <h4>Portfolio Repository</h4>
-                            <p>The complete source code for this portfolio website. Includes responsive design logic, Bootstrap integration, and GSAP animations.</p>
-                        </div>
-                    </div>
-                </div>
+<div class="text-center mb-5">
+<h6 class="text-uppercase text-muted fw-semibold">Portfolio</h6>
+<h1 class="display-4 fw-bold">Selected Works</h1>
 
-                <!-- WEB: SNCH -->
-                <div class="col-md-6 col-lg-4 filter-item web gs-reveal">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="web_snch.jpg" alt="SNCH" onerror="this.src='https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800'">
-                            <div class="overlay">
-                                <a href="https://github.com/appu223/SmartCommunityHub-Django-" target="_blank" class="btn-circle"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <div class="d-flex justify-content-between mb-2"><span class="project-tag">Django</span></div>
-                            <h4>Smart Community Hub</h4>
-                            <p>Complete society management system. Features event ticketing, complaint tracking with status automation, and a local classifieds marketplace.</p>
-                        </div>
-                    </div>
-                </div>
+<div class="mt-4 d-flex justify-content-center gap-2 flex-wrap">
+<button class="filter-btn active" data-filter="all">All</button>
+<button class="filter-btn" data-filter="web">Web Systems</button>
+<button class="filter-btn" data-filter="ai">AI / Vision</button>
+</div>
+</div>
 
-                <!-- WEB: CCMS -->
-                <div class="col-md-6 col-lg-4 filter-item web gs-reveal">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="web_ccms.jpg" alt="CCMS" onerror="this.src='https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800'">
-                            <div class="overlay">
-                                <a href="#" class="btn-pill">View Local</a>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <div class="d-flex justify-content-between mb-2"><span class="project-tag">PHP / MySQL</span></div>
-                            <h4>Smart Cyber Hub</h4>
-                            <p>Internship Project. A robust Cyber Cafe Management System. Handles user sessions, billing calculations, and admin reporting.</p>
-                        </div>
-                    </div>
-                </div>
+<div class="row g-4">
 
-                <!-- AI: RACER -->
-                <div class="col-md-6 col-lg-4 filter-item ai gs-reveal">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="cv_racer.jpg" alt="Racer" onerror="this.src='https://placehold.co/600x400?text=AI+Racer'">
-                        </div>
-                        <div class="project-info">
-                            <div class="d-flex justify-content-between mb-2"><span class="project-tag">OpenCV / Python</span></div>
-                            <h4>Neon Highway Racer</h4>
-                            <p>A browser game controlled by hand gestures. The Python backend captures webcam input and steers the car via WebSockets.</p>
-                        </div>
-                    </div>
-                </div>
+<!-- Portfolio Repo -->
+<div class="col-md-6 col-lg-4 filter-item web">
+<div class="project-card">
+<div class="project-image">
+<img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800">
+<div class="overlay">
+<a href="https://github.com/appu223/Open-CV-auto-instagram-reels-scroller-python-.git" target="_blank" class="btn-circle"><i class="fab fa-github"></i></a>
+</div>
+</div>
+<div class="project-info">
+<span class="project-tag">Source Code</span>
+<h4>Portfolio Repository</h4>
+<p>Responsive portfolio built using Bootstrap and animation libraries.</p>
+</div>
+</div>
+</div>
 
-                <!-- AI: BRICK -->
-                <div class="col-md-6 col-lg-4 filter-item ai gs-reveal">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="cv_brick.jpg" alt="Brick" onerror="this.src='https://placehold.co/600x400?text=Brick+Breaker'">
-                        </div>
-                        <div class="project-info">
-                            <div class="d-flex justify-content-between mb-2"><span class="project-tag">MediaPipe</span></div>
-                            <h4>Skeletal Brick Breaker</h4>
-                            <p>Augmented Reality game where digital physics interacts with real-world hand skeletal landmarks.</p>
-                        </div>
-                    </div>
-                </div>
+<!-- Smart Community Hub -->
+<div class="col-md-6 col-lg-4 filter-item web">
+<div class="project-card">
+<div class="project-image">
+<img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800">
+<div class="overlay">
+<a href="https://github.com/appu223/SmartCommunityHub-Django-" target="_blank" class="btn-circle"><i class="fab fa-github"></i></a>
+</div>
+</div>
+<div class="project-info">
+<span class="project-tag">Django</span>
+<h4>Smart Community Hub</h4>
+<p>Society management system with ticketing and automation modules.</p>
+</div>
+</div>
+</div>
 
-                <!-- AI: MARIO -->
-                <div class="col-md-6 col-lg-4 filter-item ai gs-reveal">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="cv_mario.jpg" alt="Mario" onerror="this.src='https://placehold.co/600x400?text=Mario'">
-                        </div>
-                        <div class="project-info">
-                            <div class="d-flex justify-content-between mb-2"><span class="project-tag">Automation</span></div>
-                            <h4>Gesture Super Mario</h4>
-                            <p>Play Mario without a keyboard. Detects 'Open Palm' to Jump and 'Fist' to Run.</p>
-                        </div>
-                    </div>
-                </div>
+<!-- Smart Cyber Hub -->
+<div class="col-md-6 col-lg-4 filter-item web">
+<div class="project-card">
+<div class="project-image">
+<img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800">
+<div class="overlay">
+<a href="#" class="btn-circle"><i class="fab fa-github"></i></a>
+</div>
+</div>
+<div class="project-info">
+<span class="project-tag">PHP / MySQL</span>
+<h4>Smart Cyber Hub</h4>
+<p>Cyber cafe management system with billing and reporting.</p>
+</div>
+</div>
+</div>
 
-            </div>
-        </div>
-    </section>
+<!-- SmartEstate -->
+<div class="col-md-6 col-lg-4 filter-item web">
+<div class="project-card">
+<div class="project-image">
+<img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800">
+<div class="overlay">
+<a href="https://github.com/appu223/SmartEstate-Django--python-" target="_blank" class="btn-circle"><i class="fab fa-github"></i></a>
+</div>
+</div>
+<div class="project-info">
+<span class="project-tag">Django / Python</span>
+<h4>SmartEstate</h4>
+<p>Property management web app built with Django backend and scalable database.</p>
+</div>
+</div>
+</div>
 
-    <footer class="py-4 text-center bg-light"><p class="text-muted small mb-0">&copy; 2025 Alphonse Niccori.</p></footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="script.js"></script>
+<!-- CRUD-OPT -->
+<div class="col-md-6 col-lg-4 filter-item web">
+<div class="project-card">
+<div class="project-image">
+<img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800">
+<div class="overlay">
+<a href="https://github.com/appu223/crud-opt" target="_blank" class="btn-circle"><i class="fab fa-github"></i></a>
+</div>
+</div>
+<div class="project-info">
+<span class="project-tag">CRUD System</span>
+<h4>CRUD-OPT</h4>
+<p>Optimized CRUD application demonstrating efficient database operations.</p>
+</div>
+</div>
+</div>
+
+<!-- AI Projects -->
+<div class="col-md-6 col-lg-4 filter-item ai">
+<div class="project-card">
+<div class="project-image">
+<img src="https://placehold.co/600x400?text=AI+Vision">
+</div>
+<div class="project-info">
+<span class="project-tag">OpenCV</span>
+<h4>Neon Highway Racer</h4>
+<p>Gesture-based AI game using Python and OpenCV.</p>
+</div>
+</div>
+</div>
+
+<div class="col-md-6 col-lg-4 filter-item ai">
+<div class="project-card">
+<div class="project-image">
+<img src="https://placehold.co/600x400?text=MediaPipe">
+</div>
+<div class="project-info">
+<span class="project-tag">MediaPipe</span>
+<h4>Skeletal Brick Breaker</h4>
+<p>AR game interacting with real-time skeletal tracking.</p>
+</div>
+</div>
+</div>
+
+<div class="col-md-6 col-lg-4 filter-item ai">
+<div class="project-card">
+<div class="project-image">
+<img src="https://placehold.co/600x400?text=Automation">
+</div>
+<div class="project-info">
+<span class="project-tag">Automation</span>
+<h4>Gesture Super Mario</h4>
+<p>Control Mario using AI gesture recognition.</p>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<footer class="py-4 text-center bg-light">
+<p class="text-muted small mb-0">© 2026 Alphonse Niccori.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+const filterBtns=document.querySelectorAll(".filter-btn");
+const items=document.querySelectorAll(".filter-item");
+
+filterBtns.forEach(btn=>{
+btn.addEventListener("click",()=>{
+filterBtns.forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+let filter=btn.getAttribute("data-filter");
+items.forEach(item=>{
+if(filter==="all"||item.classList.contains(filter)){
+item.style.display="block";
+}else{
+item.style.display="none";
+}
+});
+});
+});
+</script>
+
 </body>
 </html>
