@@ -103,7 +103,8 @@
     </header>
 
     
-    <!-- CONTACT SECTION -->
+   
+<!-- CONTACT SECTION -->
 <section id="contact" class="section-padding bg-light">
     <div class="container">
         <div class="row justify-content-center">
@@ -114,15 +115,19 @@
                         <p class="text-secondary">Send a message directly to my inbox.</p>
                     </div>
 
-                    <!-- WORKING EMAIL FORM -->
+                    <!-- PROFESSIONAL EMAIL FORM -->
                     <form action="https://formsubmit.co/alphonseniccori123@gmail.com" method="POST">
 
                         <!-- Hidden Settings -->
                         <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_subject" value="New Portfolio Contact Message">
+                        <input type="hidden" name="_subject" value="📩 New Portfolio Contact Message">
                         <input type="hidden" name="_template" value="table">
-                        <input type="hidden" name="_autoresponse" value="Thank you for contacting me. I will respond to you shortly.">
-                        <input type="hidden" name="_next" value="https://alphonse-profile-mu.vercel.app/#contact">
+                        
+                        <!-- THIS MAKES REPLY BUTTON WORK -->
+                        <input type="hidden" name="_replyto" value="%email%">
+
+                        <!-- Optional Auto Response -->
+                        <input type="hidden" name="_autoresponse" value="Thank you for contacting Alphonse Niccori. I will respond shortly.">
 
                         <div class="row g-4">
 
