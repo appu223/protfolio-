@@ -102,32 +102,66 @@
         </div>
     </header>
 
+    
     <!-- CONTACT SECTION -->
-    <section id="contact" class="section-padding bg-light">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="contact-card reveal-up">
-                        <div class="text-center mb-5">
-                            <h2 class="section-title">Let's Collaborate</h2>
-                            <p class="text-secondary">Send a message directly to my inbox.</p>
-                        </div>
-                        <form id="contactForm">
-                            <input type="hidden" name="_captcha" value="false">
-                            <input type="hidden" name="_subject" value="Portfolio Contact">
-                            <div class="row g-4">
-                                <div class="col-md-6"><div class="input-group-custom"><input type="text" name="name" required placeholder=" "><label>Name</label></div></div>
-                                <div class="col-md-6"><div class="input-group-custom"><input type="email" name="email" required placeholder=" "><label>Email</label></div></div>
-                                <div class="col-12"><div class="input-group-custom"><textarea name="message" rows="4" required placeholder=" "></textarea><label>Message</label></div></div>
-                                <div class="col-12"><button type="submit" class="btn-submit magnetic" id="submitBtn">Send Message</button><div id="formStatus" class="mt-3 text-center fw-bold"></div></div>
-                            </div>
-                        </form>
+<section id="contact" class="section-padding bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="contact-card reveal-up">
+                    <div class="text-center mb-5">
+                        <h2 class="section-title">Let's Collaborate</h2>
+                        <p class="text-secondary">Send a message directly to my inbox.</p>
                     </div>
+
+                    <!-- WORKING EMAIL FORM -->
+                    <form action="https://formsubmit.co/alphonseniccori123@gmail.com" method="POST">
+
+                        <!-- Hidden Settings -->
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_subject" value="New Portfolio Contact Message">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_autoresponse" value="Thank you for contacting me. I will respond to you shortly.">
+                        <input type="hidden" name="_next" value="https://alphonse-profile-mu.vercel.app/#contact">
+
+                        <div class="row g-4">
+
+                            <div class="col-md-6">
+                                <div class="input-group-custom">
+                                    <input type="text" name="name" required placeholder=" ">
+                                    <label>Name</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="input-group-custom">
+                                    <input type="email" name="email" required placeholder=" ">
+                                    <label>Email</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="input-group-custom">
+                                    <textarea name="message" rows="4" required placeholder=" "></textarea>
+                                    <label>Message</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn-submit magnetic">
+                                    Send Message
+                                </button>
+                            </div>
+
+                        </div>
+                    </form>
+                    <!-- END FORM -->
+
                 </div>
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
     <footer class="py-4 text-center"><p class="text-muted small mb-0">&copy; 2025 Alphonse Niccori.</p></footer>
 
     <!-- Scripts -->
